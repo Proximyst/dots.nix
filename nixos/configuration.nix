@@ -41,6 +41,7 @@
     viAlias = true;
   };
   programs.git.enable = true;
+  programs.hyprland.enable = true; # we need some stuff set up.
 
   i18n.defaultLocale = "en_GB.UTF-8";
   console = {

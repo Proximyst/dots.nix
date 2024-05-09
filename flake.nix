@@ -5,11 +5,10 @@
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    hyprland.url = "github:hyprwm/Hyprland";
     catppuccin.url = "github:catppuccin/nix";
   };
 
-  outputs = { nixpkgs, self, home-manager, hyprland, catppuccin, ... }:
+  outputs = { nixpkgs, self, home-manager, catppuccin, ... }:
     let
       system = "x86_64-linux";
       pkgs = import nixpkgs {
@@ -22,17 +21,19 @@
       nixosConfigurations = {
         mariell = lib.nixosSystem rec {
           inherit system;
-          specialArgs = { inherit hyprland; };
           modules = [
             ./nixos/configuration.nix
-            hyprland.nixosModules.default
             catppuccin.nixosModules.catppuccin
             home-manager.nixosModules.home-manager
             {
               home-manager.useGlobalPkgs = true;
               home-manager.useUserPackages = true;
-              home-manager.users.mariell = import ./home/home.nix;
-              home-manager.extraSpecialArgs = specialArgs;
+              home-manager.users.mariell = {
+                imports = [
+                  ./home/home.nix
+                  catppuccin.homeManagerModules.catppuccin
+                ];
+              };
             }
           ];
         };
