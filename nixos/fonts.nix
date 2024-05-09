@@ -4,6 +4,7 @@
   fonts.packages = with pkgs;
     [
       iosevka
+      fira-code
       noto-fonts
       noto-fonts-cjk
       noto-fonts-emoji

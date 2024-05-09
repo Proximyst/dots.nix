@@ -20,7 +20,7 @@
   home.packages = with pkgs; [
     discord
     google-chrome
-    make
+    make gcc
   ];
 
   home.stateVersion = "23.11";
