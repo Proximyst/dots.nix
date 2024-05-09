@@ -4,13 +4,12 @@
 
 { config, pkgs, ... }:
 
-let
-  unstableTarball = fetchTarball "https://github.com/nixos/nixpkgs/archive/nixos-unstable.tar.gz";
-in
 {
   imports =
-    [ ./hardware-configuration.nix
+    [
+      ./hardware-configuration.nix
       ./boot.nix
+      ./nvidia.nix
       ./user.nix
     ];
 
@@ -21,11 +20,6 @@ in
 
   nixpkgs.config = {
     allowUnfree = true;
-    packageOverrides = pkgs: {
-      unstable = import unstableTarball {
-        config = config.nixpkgs.config;
-      };
-    };
   };
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
 
@@ -46,7 +40,8 @@ in
   };
 
   environment.systemPackages = with pkgs;
-    [ xfsprogs
+    [
+      xfsprogs
     ];
 
   networking.firewall.enable = true;
