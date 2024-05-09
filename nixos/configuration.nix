@@ -8,20 +8,39 @@
   imports =
     [
       ./hardware-configuration.nix
-      ./boot.nix
       ./nvidia.nix
-      ./user.nix
+      ./fonts.nix
     ];
+
+  boot.loader.systemd-boot.enable = true;
+  boot.loader.efi.canTouchEfiVariables = true;
 
   networking.hostName = "mariell-nix";
   networking.networkmanager.enable = true;
 
   time.timeZone = "Europe/Stockholm";
 
-  nixpkgs.config = {
-    allowUnfree = true;
-  };
+  nixpkgs.config.allowUnfree = true;
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
+  nix.gc = {
+    automatic = true;
+    dates = "weekly";
+    options = "--delete-older-than 14d";
+  };
+
+  environment.systemPackages = with pkgs;
+    [
+      curl
+      wget
+    ];
+
+  programs.neovim = {
+    enable = true;
+    defaultEditor = true;
+    vimAlias = true;
+    viAlias = true;
+  };
+  programs.git.enable = true;
 
   i18n.defaultLocale = "en_GB.UTF-8";
   console = {
@@ -29,8 +48,10 @@
     keyMap = "sv-latin1";
   };
 
-  sound.enable = false; # I use PipeWire
   security.rtkit.enable = true;
+  security.polkit.enable = true;
+
+  sound.enable = false; # I use PipeWire
   services.pipewire = {
     enable = true;
     alsa.enable = true;
@@ -39,10 +60,12 @@
     jack.enable = true;
   };
 
-  environment.systemPackages = with pkgs;
-    [
-      xfsprogs
-    ];
+  programs.zsh.enable = true;
+  users.defaultUserShell = pkgs.zsh;
+  users.users.mariell = {
+    isNormalUser = true;
+    extraGroups = [ "wheel" ];
+  };
 
   networking.firewall.enable = true;
   # networking.firewall.allowedTCPPorts = [ ... ];

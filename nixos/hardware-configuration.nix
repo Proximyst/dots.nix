@@ -19,6 +19,7 @@
       device = "/dev/disk/by-uuid/8cd00550-b82e-477e-9505-cff22e461b61";
       fsType = "xfs";
     };
+  environment.systemPackages = [ pkgs.xfsprogs ];
 
   fileSystems."/boot" =
     {
