@@ -14,6 +14,6 @@
       })
     ];
   fonts.fontconfig.defaultFonts = {
-    monospace = [ "Iosevka" "FiraCode" "Noto Emoji" ];
+    monospace = [ "Iosevka" "FiraCode" "Noto Emoji" "Font Awesome 6 Free" ];
   };
 }

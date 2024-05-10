@@ -53,4 +53,41 @@
       ];
     };
   };
+
+  programs.waybar = {
+    enable = true;
+    systemd.enable = true;
+    catppuccin.enable = true;
+    settings = {
+      mainBar = {
+        output = [ "DP-1" ];
+        layer = "top";
+        position = "top";
+        height = 30;
+        spacing = 6;
+        modules-left = [ "hyprland/workspaces" ];
+        modules-center = [ "hyprland/window" ];
+        modules-right = [ "tray" "wireplumber" "clock" ];
+
+        "hyprland/workspaces" = {
+          persistent-workspaces."*" = 5;
+        };
+        tray = {
+          spacing = 10;
+          icon-size = 15;
+          show-passive-items = true;
+        };
+        wireplumber = {
+          tooltip = false;
+          format = "🎧 {volume}%";
+        };
+        clock = {
+          interval = 10;
+          format = "🕙 {:%a %d %b %R}";
+          tooltip = false;
+        };
+      };
+    };
+    style = builtins.readFile ./waybar.css;
+  };
 }
