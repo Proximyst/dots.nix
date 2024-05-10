@@ -8,6 +8,7 @@
       noto-fonts
       noto-fonts-cjk
       noto-fonts-emoji
+      font-awesome
       (nerdfonts.override {
         fonts = [ "Iosevka" "FiraCode" ];
       })
