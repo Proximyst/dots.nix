@@ -15,7 +15,6 @@
 
   home.packages = with pkgs; [
     discord
-    google-chrome
     gnumake
     gcc
   ];

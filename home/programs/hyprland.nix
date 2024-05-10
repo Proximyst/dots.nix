@@ -46,6 +46,7 @@
         "SHIFT_$mod,3,movetoworkspace,3"
         "SHIFT_$mod,4,movetoworkspace,4"
         "SHIFT_$mod,5,movetoworkspace,5"
+        "$mod,B,exec,firefox"
       ];
     };
   };
