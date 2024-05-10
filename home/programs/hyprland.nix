@@ -48,6 +48,9 @@
         "SHIFT_$mod,5,movetoworkspace,5"
         "$mod,B,exec,firefox"
       ];
+      windowrule = [
+        "opacity 0.9,alacritty"
+      ];
     };
   };
 }
