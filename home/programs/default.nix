@@ -8,7 +8,6 @@
     ./git.nix
     ./neovim.nix
     ./nix-index.nix
-    ./walker.nix
     ./zsh.nix
   ];
 }
