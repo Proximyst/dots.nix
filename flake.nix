@@ -14,6 +14,10 @@
       url = "github:nix-community/fenix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    walker = {
+      url = "github:abenz1267/walker";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs = inputs @ { nixpkgs, self, home-manager, ... }:
@@ -45,6 +49,7 @@
                 imports = [
                   ./home/home.nix
                   inputs.catppuccin.homeManagerModules.catppuccin
+                  inputs.walker.homeManagerModules.walker
                 ];
               };
             }

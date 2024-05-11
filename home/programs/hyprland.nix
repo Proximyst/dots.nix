@@ -1,6 +1,13 @@
 { config, libs, pkgs, ... }:
 
 {
+  home.packages = with pkgs; [
+    grim
+    slurp
+    j4-dmenu-desktop
+    bemenu
+  ];
+
   wayland.windowManager.hyprland = {
     enable = true;
     xwayland.enable = true;
@@ -23,7 +30,7 @@
       ];
       bind = [
         "$mod,Return,exec,alacritty"
-        "$mod,D,exec,wofi"
+        "$mod,D,exec,j4-dmenu-desktop --dmenu='bemenu -i --center --list 10down --width-factor 0.2 -p apps -P \">\" --fb \"##24273a\" --ff \"##cad3f5\" --nb \"##24273a\" --nf \"##cad3f5\" --tb \"##24273a\" --hb \"##24273a\" --tf \"##ed8796\" --hf \"##eed49f\" --af \"##cad3f5\" --ab \"##24273a\"'"
         "$mod,Q,killactive"
         "$mod,H,movefocus,l"
         "$mod,L,movefocus,r"
@@ -48,6 +55,7 @@
         "SHIFT_$mod,4,movetoworkspace,4"
         "SHIFT_$mod,5,movetoworkspace,5"
         "$mod,B,exec,firefox"
+        "SHIFT_$mod,S,exec,grim -g \"$(slurp)\" - | wl-copy"
       ];
       bindm = [
         "$mod,mouse:272,movewindow" # RMB
@@ -57,6 +65,10 @@
         "opacity 0.9,focus:0"
         "opacity 0.9,initialtitle:^(Spotify)$"
         "opacity 0.97,class:^(Alacritty)$,focus:1"
+        "opacity 1,fullscreen:1"
+      ];
+      layerrule = [
+        "noanim,menu"
       ];
     };
   };

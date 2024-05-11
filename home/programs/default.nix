@@ -7,7 +7,8 @@
     ./hyprland.nix
     ./git.nix
     ./neovim.nix
-    ./wofi.nix
+    ./nix-index.nix
+    ./walker.nix
     ./zsh.nix
   ];
 }

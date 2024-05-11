@@ -5,6 +5,7 @@
     enable = true;
     policies = {
       DefaultDownloadDirectory = "\${home}/downloads";
+      layout.spellcheckDefault = 0;
     };
     profiles.mariell = {
       id = 0;
