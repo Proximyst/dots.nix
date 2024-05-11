@@ -24,8 +24,10 @@
       checkout.workers = 0;
       pack.writeReverseIndex = true;
       gpg.format = "ssh";
+      user.signingkey = "~/.ssh/id_ed25519.pub";
       feature.manyFiles = true;
       lfs.locksverify = false;
+      commit.sign = true;
     };
   };
 }
