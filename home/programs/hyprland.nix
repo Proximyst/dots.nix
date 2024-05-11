@@ -23,6 +23,7 @@
       ];
       bind = [
         "$mod,Return,exec,alacritty"
+        "$mod,D,exec,wofi"
         "$mod,Q,killactive"
         "$mod,H,movefocus,l"
         "$mod,L,movefocus,r"
@@ -48,8 +49,26 @@
         "SHIFT_$mod,5,movetoworkspace,5"
         "$mod,B,exec,firefox"
       ];
-      windowrule = [
-        "opacity 0.9,alacritty"
+      bindm = [
+        "$mod,mouse:272,movewindow" # RMB
+        "$mod,mouse:273,resizewindow" # RMB
+      ];
+      windowrulev2 = [
+        "opacity 0.9,focus:0"
+        "opacity 0.97,class:^(Alacritty)$,focus:1"
+      ];
+    };
+  };
+
+  services.hyprpaper = {
+    enable = true;
+    settings = {
+      splash = false; # wtf?
+      preload = [
+        "${./anime-girl-katana.jpg}"
+      ];
+      wallpaper = [
+        ",${./anime-girl-katana.jpg}"
       ];
     };
   };
@@ -63,7 +82,7 @@
         output = [ "DP-1" ];
         layer = "top";
         position = "top";
-        height = 30;
+        height = 14;
         spacing = 6;
         modules-left = [ "hyprland/workspaces" ];
         modules-center = [ "hyprland/window" ];

@@ -13,6 +13,8 @@
       search.default = "Google";
       search.engines = {
         Google.metaData = { };
+        Bing.metaData.hidden = true;
+
         "Nix Packages" = {
           icon = "${pkgs.nixos-icons}/share/icons/hicolor/scalable/apps/nix-snowflake.svg";
           definedAliases = [ "@np" ];

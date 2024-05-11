@@ -3,6 +3,8 @@
 {
   imports = [
     ./programs
+    ./xdg.nix
+    ./cursor.nix
   ];
 
   catppuccin.flavour = "macchiato";
@@ -14,9 +16,11 @@
   };
 
   home.packages = with pkgs; [
-    discord
+    spotify
     gnumake
     gcc
+    htop
+    ripgrep
   ];
 
   home.stateVersion = "23.11";
