@@ -83,7 +83,7 @@
         output = [ "DP-1" ];
         layer = "top";
         position = "top";
-        height = 14;
+        height = 8;
         spacing = 6;
         modules-left = [ "hyprland/workspaces" ];
         modules-center = [ "hyprland/window" ];
