@@ -55,6 +55,7 @@
       ];
       windowrulev2 = [
         "opacity 0.9,focus:0"
+        "opacity 0.9,initialtitle:^(Spotify)$"
         "opacity 0.97,class:^(Alacritty)$,focus:1"
       ];
     };

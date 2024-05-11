@@ -6,5 +6,7 @@
     defaultEditor = true;
     viAlias = true;
     vimAlias = true;
+    package = pkgs.neovim-nightly;
+    extraPackages = with pkgs; [ fzf ];
   };
 }

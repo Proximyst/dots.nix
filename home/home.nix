@@ -3,6 +3,7 @@
 {
   imports = [
     ./programs
+    ./dev
     ./xdg.nix
     ./cursor.nix
   ];
@@ -21,6 +22,7 @@
     gcc
     htop
     ripgrep
+    _1password
   ];
 
   home.stateVersion = "23.11";

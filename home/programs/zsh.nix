@@ -8,10 +8,13 @@
     syntaxHighlighting.catppuccin.enable = true;
     oh-my-zsh.enable = true;
     oh-my-zsh.theme = "robbyrussell";
-    oh-my-zsh.plugins = [ "git" ];
+    oh-my-zsh.plugins = [ "git" "1password" ];
 
     shellAliases = {
       v = "nvim";
+      q = "exit";
+      ":q" = "exit";
+      ":wq" = "exit";
     };
   };
 }
