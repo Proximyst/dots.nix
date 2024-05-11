@@ -23,6 +23,7 @@
     htop
     ripgrep
     _1password
+    unzip
   ];
 
   home.stateVersion = "23.11";

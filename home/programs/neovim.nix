@@ -7,6 +7,6 @@
     viAlias = true;
     vimAlias = true;
     package = pkgs.neovim-nightly;
-    extraPackages = with pkgs; [ fzf ];
+    extraPackages = with pkgs; [ fzf python3 nodejs_22 ];
   };
 }
