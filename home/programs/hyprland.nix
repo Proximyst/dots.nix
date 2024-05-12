@@ -63,7 +63,7 @@
       ];
       windowrulev2 = [
         "opacity 0.9,focus:0"
-        "opacity 0.9,initialtitle:^(Spotify)$"
+        "opacity 0.9,workspace 2,class:^(Spotify)$"
         "opacity 0.97,class:^(Alacritty)$,focus:1"
         "opacity 1,fullscreen:1"
       ];
@@ -78,10 +78,10 @@
     settings = {
       splash = false; # wtf?
       preload = [
-        "${./anime-girl-katana.jpg}"
+        "${./../../wallpapers/anime-girl-katana.jpg}"
       ];
       wallpaper = [
-        ",${./anime-girl-katana.jpg}"
+        ",${./../../wallpapers/anime-girl-katana.jpg}"
       ];
     };
   };

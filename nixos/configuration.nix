@@ -15,6 +15,7 @@
 
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
+  boot.loader.grub.catppuccin.enable = true;
 
   networking.hostName = "mariell-nix";
   networking.networkmanager.enable = true;
