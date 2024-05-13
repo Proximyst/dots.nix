@@ -1,9 +1,12 @@
-{ config, libs, pkgs, ... }:
+{ config, pkgs, ... }:
 
+# TODO: Split this function into multiple modules, one for each part of the puzzle.
 {
   home.packages = with pkgs; [
+    # Screenshotting
     grim
     slurp
+    # App menu
     j4-dmenu-desktop
     bemenu
   ];
@@ -14,7 +17,6 @@
     catppuccin.enable = true;
 
     settings = {
-      "$mod" = "SUPER";
       input = {
         kb_layout = "se";
         sensitivity = "-0.3";
@@ -28,8 +30,11 @@
         "fade,1,2,default"
         "workspaces,1,2,default"
       ];
+
+      "$mod" = "SUPER";
       bind = [
         "$mod,Return,exec,alacritty"
+        # TODO: Migrate the bemenu script to a proper shell bin script?
         "$mod,D,exec,j4-dmenu-desktop --dmenu='bemenu -i --center --list 10down --width-factor 0.2 -p apps -P \">\" --fb \"##24273a\" --ff \"##cad3f5\" --nb \"##24273a\" --nf \"##cad3f5\" --tb \"##24273a\" --hb \"##24273a\" --tf \"##ed8796\" --hf \"##eed49f\" --af \"##cad3f5\" --ab \"##24273a\"'"
         "$mod,Q,killactive"
         "$mod,H,movefocus,l"
@@ -61,6 +66,7 @@
         "$mod,mouse:272,movewindow" # RMB
         "$mod,mouse:273,resizewindow" # RMB
       ];
+
       windowrulev2 = [
         "opacity 1,fullscreen:1"
         "opacity 1,title:^(firefox)$"
@@ -76,13 +82,14 @@
 
   services.hyprpaper = {
     enable = true;
+
     settings = {
       splash = false; # wtf?
       preload = [
-        "${./../../wallpapers/anime-girl-katana.jpg}"
+        "${./../../../wallpapers/anime-girl-katana.jpg}"
       ];
       wallpaper = [
-        ",${./../../wallpapers/anime-girl-katana.jpg}"
+        ",${./../../../wallpapers/anime-girl-katana.jpg}"
       ];
     };
   };
@@ -91,6 +98,7 @@
     enable = true;
     systemd.enable = true;
     catppuccin.enable = true;
+
     settings = {
       mainBar = {
         output = [ "DP-1" ];
@@ -122,5 +130,11 @@
       };
     };
     style = builtins.readFile ./waybar.css;
+  };
+
+  home.pointerCursor = {
+    name = "Catppuccin-Macchiato-Dark-Cursors";
+    package = pkgs.catppuccin-cursors.macchiatoDark;
+    gtk.enable = true;
   };
 }

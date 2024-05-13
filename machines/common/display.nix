@@ -2,21 +2,21 @@
 
 let
   catppuccin-sddm = { pkgs }: pkgs.stdenv.mkDerivation {
-  name = "catppuccin-sddm";
-  src = pkgs.fetchFromGitHub {
-    owner = "catppuccin";
-    repo = "sddm";
-    rev = "main";
-    hash = "sha256-TMElu+90/qtk4ipwfoALt7vKxxB9wxW81ZVbTfZI4kA=";
-  };
-  buildInputs = with pkgs; [ just gnused ];
-  buildPhase = ''
-    just build
-  '';
-  installPhase = ''
-    mkdir -p $out
-    cp -r ./dist/catppuccin-macchiato/* $out/
-  '';
+    name = "catppuccin-sddm";
+    src = pkgs.fetchFromGitHub {
+      owner = "catppuccin";
+      repo = "sddm";
+      rev = "main";
+      hash = "sha256-TMElu+90/qtk4ipwfoALt7vKxxB9wxW81ZVbTfZI4kA=";
+    };
+    buildInputs = with pkgs; [ just gnused ];
+    buildPhase = ''
+      just build
+    '';
+    installPhase = ''
+      mkdir -p $out
+      cp -r ./dist/catppuccin-macchiato/* $out/
+    '';
   };
 in
 {
@@ -37,9 +37,6 @@ in
         kdePackages.qtsvg
         kdePackages.qtvirtualkeyboard
       ];
-      settings = {
-        General.Background = "${./../wallpapers/anime-girl-katana-tattoo.jpg}";
-      };
     };
   };
 }

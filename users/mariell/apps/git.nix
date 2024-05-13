@@ -12,7 +12,6 @@
       light = false;
       line-numbers = true;
       side-by-side = true;
-      syntax-theme = "gruvbox-dark";
     };
     extraConfig = {
       init.defaultBranch = "main";

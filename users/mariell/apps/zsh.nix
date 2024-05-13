@@ -2,9 +2,9 @@
 
 {
   home.packages = with pkgs; [
-  fzf
-  eza
-  wl-clipboard
+    fzf
+    eza
+    wl-clipboard
   ];
 
   programs.zsh = {
