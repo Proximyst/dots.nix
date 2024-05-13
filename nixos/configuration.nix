@@ -11,6 +11,7 @@
       ./nvidia.nix
       ./fonts.nix
       ./display.nix
+      ./games.nix
     ];
 
   boot.loader.systemd-boot.enable = true;
