@@ -62,10 +62,11 @@
         "$mod,mouse:273,resizewindow" # RMB
       ];
       windowrulev2 = [
+        "opacity 1,fullscreen:1"
+        "opacity 1,title:^(firefox)$"
         "opacity 0.9,focus:0"
         "opacity 0.9,workspace 2,class:^(Spotify)$"
         "opacity 0.97,class:^(Alacritty)$,focus:1"
-        "opacity 1,fullscreen:1"
       ];
       layerrule = [
         "noanim,menu"
