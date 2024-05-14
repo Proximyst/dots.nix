@@ -23,6 +23,7 @@
     jq
     dogdns
     htop
+    sd
 
     # Basically necessities
     gnumake
