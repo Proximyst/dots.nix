@@ -3,6 +3,7 @@
 {
   imports = [
     ./alacritty.nix
+    ./direnv.nix
     ./dunst.nix
     ./firefox.nix
     ./git.nix
