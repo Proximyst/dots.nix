@@ -16,6 +16,10 @@
       url = "github:abenz1267/walker";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    fenix = {
+      url = "github:nix-community/fenix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs = { self, nixpkgs, ... } @ inputs:
@@ -49,6 +53,7 @@
               extraSpecialArgs = {
                 inherit system;
                 inherit sys-conf;
+                inherit (inputs) fenix;
               };
             };
           }

@@ -7,7 +7,7 @@
     ./firefox.nix
     ./git.nix
     ./hyfetch.nix
-    ./neovim.nix
+    ./neovim
     ./social.nix
     ./zsh.nix
   ];
@@ -26,5 +26,14 @@
     # Basically necessities
     gnumake
     unzip
+
+    # Rust toolchain
+    (fenix.complete.withComponents [
+      "cargo"
+      "clippy"
+      "rust-src"
+      "rustc"
+      "rustfmt"
+    ])
   ];
 }

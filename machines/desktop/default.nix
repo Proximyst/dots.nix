@@ -14,7 +14,7 @@
 
     # User config
     (import ../../users/mariell { inherit inputs; })
-          inputs.catppuccin.nixosModules.catppuccin
+    inputs.catppuccin.nixosModules.catppuccin
   ];
 
   catppuccin.flavour = "macchiato";
