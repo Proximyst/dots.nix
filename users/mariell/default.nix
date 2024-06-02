@@ -35,7 +35,7 @@ in
 
       home = {
         # Use the same version as we use for NixOS.
-        stateVersion = "23.11"; # don't touch!
+        stateVersion = "24.05"; # don't touch!
 
         username = sys-conf.currentUser;
         homeDirectory = "/home/${sys-conf.currentUser}";

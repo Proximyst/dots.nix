@@ -1,4 +1,4 @@
-{ pkgs, lib, ... }:
+{ pkgs, lib, inputs, ... }:
 
 let
   catppuccin-sddm = { pkgs }: pkgs.stdenv.mkDerivation {
@@ -20,7 +20,10 @@ let
   };
 in
 {
-  programs.hyprland.enable = true; # we need some stuff set up.
+  programs.hyprland = {
+    enable = true; # we need some stuff set up.
+    package = inputs.hyprland.packages.${pkgs.system}.hyprland;
+  };
 
   services.displayManager = {
     enable = true;
