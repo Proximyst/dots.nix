@@ -4,7 +4,6 @@ _:
 
 let
   overlays = [
-    inputs.neovim-nightly-overlay.overlays.default
     inputs.fenix.overlays.default
   ];
 in

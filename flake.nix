@@ -53,7 +53,7 @@
               extraSpecialArgs = {
                 inherit system;
                 inherit sys-conf;
-                inherit (inputs) fenix;
+                inherit (inputs) fenix neovim-nightly-overlay;
               };
             };
           }

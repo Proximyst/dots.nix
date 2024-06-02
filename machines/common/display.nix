@@ -7,7 +7,7 @@ let
       owner = "catppuccin";
       repo = "sddm";
       rev = "main";
-      hash = "sha256-TMElu+90/qtk4ipwfoALt7vKxxB9wxW81ZVbTfZI4kA=";
+      hash = "sha256-J+pIrzdC07iyNPfHBt6bmzb8DC0oQQfT3lnXIL74BzQ=";
     };
     buildInputs = with pkgs; [ just gnused ];
     buildPhase = ''

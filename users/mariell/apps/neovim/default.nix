@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ config, pkgs, neovim-nightly-overlay, ... }:
 
 {
   programs.neovim = {
@@ -6,7 +6,8 @@
     defaultEditor = true;
     viAlias = true;
     vimAlias = true;
-    package = pkgs.neovim-nightly;
+    #package = pkgs.neovim-nightly;
+    package = neovim-nightly-overlay.packages.${pkgs.system}.default;
     extraPackages = with pkgs; [
       # LSP pre-reqs
       python3
