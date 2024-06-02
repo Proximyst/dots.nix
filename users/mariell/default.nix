@@ -31,7 +31,7 @@ in
         ./apps
       ];
 
-      catppuccin.flavour = "macchiato";
+      catppuccin.flavor = "macchiato";
 
       home = {
         # Use the same version as we use for NixOS.

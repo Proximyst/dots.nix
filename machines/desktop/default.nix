@@ -17,7 +17,7 @@
     inputs.catppuccin.nixosModules.catppuccin
   ];
 
-  catppuccin.flavour = "macchiato";
+  catppuccin.flavor = "macchiato";
 
   time.timeZone = "Europe/Stockholm";
 
