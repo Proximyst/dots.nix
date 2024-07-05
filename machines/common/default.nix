@@ -11,6 +11,7 @@
     ./fonts.nix
     ./display.nix
     (import ./overlays.nix { inherit inputs; })
+    ./docker.nix
   ];
 
   programs.zsh.enable = true;
