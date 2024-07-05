@@ -4,7 +4,7 @@
   home.packages = with pkgs; [
     fzf
     eza
-    wl-clipboard
+    xclip
   ];
 
   programs.zsh = {
@@ -63,8 +63,8 @@
       ll = "l -h";
       la = "l -aF";
       j = "jump";
-      copy = "wl-copy";
-      paste = "wl-paste";
+      copy = "xclip -selection clipboard";
+      paste = "xclip -o -selection clipboard";
     };
 
     oh-my-zsh.extraConfig = ''
