@@ -7,6 +7,10 @@
     hsetroot
     # For pretty stuff (TODO: Hook this up)
     picom
+    # For clipboard access
+    xclip
+    # For screenshots
+    maim
   ];
 
   xsession.windowManager.bspwm =
@@ -57,6 +61,7 @@
       "super + q" = "bspc node -c";
       "super + shift + q" = "bspc node -k";
       "super + d" = "rofi -show drun";
+      "super + shift + 4" = "maim -s | xclip -selection clipboard -t image/png";
     };
 
     extraConfig = ''

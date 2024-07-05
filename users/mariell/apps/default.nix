@@ -40,6 +40,6 @@
       "rustfmt"
     ])
 
-nvim-pkg
+    nvim-pkg
   ];
 }
