@@ -20,7 +20,7 @@
       nodePackages.bash-language-server
       clang
       dockerfile-language-server-nodejs
-      nodePackages.pyright
+      pyright
       python311Packages.jedi-language-server
       taplo
       gopls

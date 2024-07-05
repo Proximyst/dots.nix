@@ -37,15 +37,11 @@
       libva-utils
     ];
   environment.sessionVariables = {
-    WLR_NO_HARDWARE_CURSORS = "1";
-    WLR_RENDERER = "vulkan";
-    NIXOS_OZONE_WL = "1";
-    GBM_BACKEND = "nvidia-drm";
-    NVD_BACKEND = "direct";
-    MOZ_ENABLE_WAYLAND = "1";
+    #    GBM_BACKEND = "nvidia-drm";
+    #    NVD_BACKEND = "direct";
     _JAVA_AWT_WM_NONREPARENTING = "1";
-    __GLX_VENDOR_LIBRARY_NAME = "nvidia";
-    LIBVA_DRIVER_NAME = "nvidia";
-    XWAYLAND_NO_GLAMOR = "1";
+    #    __GLX_VENDOR_LIBRARY_NAME = "nvidia";
+    #    LIBVA_DRIVER_NAME = "nvidia";
+    #    XWAYLAND_NO_GLAMOR = "1";
   };
 }

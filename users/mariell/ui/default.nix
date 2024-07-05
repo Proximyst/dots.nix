@@ -1,141 +1,206 @@
-{ config, pkgs, inputs, ... }:
+{ config, lib, pkgs, inputs, ... }:
 
 # TODO: Split this function into multiple modules, one for each part of the puzzle.
 {
   home.packages = with pkgs; [
-    # Screenshotting
-    grim
-    slurp
-    # App menu
-    j4-dmenu-desktop
-    bemenu
+    # To set wallpaper
+    hsetroot
+    # For pretty stuff (TODO: Hook this up)
+    picom
   ];
 
-  wayland.windowManager.hyprland = {
-    enable = true;
-    package = inputs.hyprland.packages.${pkgs.system}.hyprland;
-    xwayland.enable = true;
-    catppuccin.enable = true;
+  xsession.windowManager.bspwm =
+    {
+      enable = true;
+      extraConfig = ''
+        bspc monitor -d 1 2 3 4 5
+        bspc config pointer_modifier mod4
+        bspc config pointer_action1 move
+        bspc config pointer_action2 resize_side
+        bspc config pointer_action3 resize_corner
+        bspc config automatic_scheme spiral
 
-    settings = {
-      input = {
-        kb_layout = "se";
-        sensitivity = "-0.3";
-        accel_profile = "flat";
-      };
-      monitor = [
-        "DP-1,3440x1440@144Hz,0x0,1"
-      ];
-      animation = [
-        "windows,1,2,default"
-        "fade,1,2,default"
-        "workspaces,1,2,default"
-      ];
+        for id in "$(xinput list --short | grep 'pointer' | grep 'Logitech G Pro' | perl -ne 'while (m/id=(\d+)/g) { print "$1\n"; }')"; do
+          xinput --set-prop "$id" 'libinput Accel Speed' -0.1
+        done
+      '';
 
-      "$mod" = "SUPER";
-      bind = [
-        "$mod,Return,exec,alacritty"
-        # TODO: Migrate the bemenu script to a proper shell bin script?
-        "$mod,D,exec,j4-dmenu-desktop --dmenu='bemenu -i --center --list 10down --width-factor 0.2 -p apps -P \">\" --fb \"##24273a\" --ff \"##cad3f5\" --nb \"##24273a\" --nf \"##cad3f5\" --tb \"##24273a\" --hb \"##24273a\" --tf \"##ed8796\" --hf \"##eed49f\" --af \"##cad3f5\" --ab \"##24273a\"'"
-        "$mod,Q,killactive"
-        "$mod,H,movefocus,l"
-        "$mod,L,movefocus,r"
-        "$mod,K,movefocus,u"
-        "$mod,J,movefocus,d"
-        "SHIFT_$mod,H,movewindow,l"
-        "SHIFT_$mod,L,movewindow,r"
-        "SHIFT_$mod,K,movewindow,u"
-        "SHIFT_$mod,J,movewindow,d"
-        "ALT,TAB,focuscurrentorlast"
-        "$mod,F,fullscreen"
-        "$mod,G,fullscreen,1"
-        "$mod,S,togglefloating"
-        "$mod,1,focusworkspaceoncurrentmonitor,1"
-        "$mod,2,focusworkspaceoncurrentmonitor,2"
-        "$mod,3,focusworkspaceoncurrentmonitor,3"
-        "$mod,4,focusworkspaceoncurrentmonitor,4"
-        "$mod,5,focusworkspaceoncurrentmonitor,5"
-        "SHIFT_$mod,1,movetoworkspace,1"
-        "SHIFT_$mod,2,movetoworkspace,2"
-        "SHIFT_$mod,3,movetoworkspace,3"
-        "SHIFT_$mod,4,movetoworkspace,4"
-        "SHIFT_$mod,5,movetoworkspace,5"
-        "$mod,B,exec,firefox"
-        "SHIFT_$mod,S,exec,grim -g \"$(slurp)\" - | wl-copy"
-      ];
-      bindm = [
-        "$mod,mouse:272,movewindow" # RMB
-        "$mod,mouse:273,resizewindow" # RMB
+      startupPrograms = [
+        "xrandr --output DP-0 --mode 3440x1440 --rate 144 --primary"
+        "hsetroot -cover ${./../../../wallpapers/anime-girl-katana.jpg}"
+        "xsetroot -cursor_name left_ptr"
+        "polybar"
+        "discord"
+        "spotify"
       ];
 
-      windowrulev2 = [
-        "opacity 1,fullscreen:1"
-        "opacity 1,title:^(firefox)$"
-        "opacity 0.9,focus:0"
-        "opacity 0.9,workspace 2,class:^(Spotify)$"
-        "opacity 0.97,class:^(Alacritty)$,focus:1"
-      ];
-      layerrule = [
-        "noanim,menu"
-      ];
-    };
-  };
-
-  services.hyprpaper = {
-    enable = true;
-
-    settings = {
-      splash = false; # wtf?
-      preload = [
-        "${./../../../wallpapers/anime-girl-katana.jpg}"
-      ];
-      wallpaper = [
-        ",${./../../../wallpapers/anime-girl-katana.jpg}"
-      ];
-    };
-  };
-
-  programs.waybar = {
-    enable = true;
-    systemd.enable = true;
-    catppuccin.enable = true;
-
-    settings = {
-      mainBar = {
-        output = [ "DP-1" ];
-        layer = "top";
-        position = "top";
-        height = 8;
-        spacing = 6;
-        modules-left = [ "hyprland/workspaces" ];
-        modules-center = [ "hyprland/window" ];
-        modules-right = [ "tray" "wireplumber" "clock" ];
-
-        "hyprland/workspaces" = {
-          persistent-workspaces."*" = 5;
+      rules = {
+        "discord" = {
+          desktop = "^2";
+          follow = false;
+          focus = false;
         };
-        tray = {
-          spacing = 10;
-          icon-size = 15;
-          show-passive-items = true;
-        };
-        wireplumber = {
-          tooltip = false;
-          format = "🎧 {volume}%";
-        };
-        clock = {
-          interval = 10;
-          format = "🕙 {:%a %d %b %R}";
-          tooltip = false;
+        "spotify" = {
+          desktop = "^3";
+          follow = false;
+          focus = false;
         };
       };
     };
-    style = builtins.readFile ./waybar.css;
+
+  services.sxhkd = {
+    enable = true;
+    keybindings = {
+      "super + Return" = "alacritty";
+      "super + Escape" = "pkill --signal SIGUSR1 -x sxhkd";
+      "super + b" = "firefox";
+      "super + q" = "bspc node -c";
+      "super + shift + q" = "bspc node -k";
+      "super + d" = "rofi -show drun";
+    };
+
+    extraConfig = ''
+      super + {_, ctrl +}{h,j,k,l}
+        bspc node -{f,s} {west,south,north,east}
+
+      super + {_, ctrl +}{1-5}
+        bspc {desktop -f,node -d} '^{1-5}'
+
+      super + {p,o,comma,period}
+        bspc node -f @{parent,brother,first,second}
+
+      super + {y,shift + y,s,f}
+        bspc node -t {tiled,pseudo_tiled,floating,fullscreen}
+    '';
+  };
+
+  programs.rofi = {
+    enable = true;
+    catppuccin = {
+      enable = true;
+      flavor = "macchiato";
+    };
+    extraConfig = {
+      modi = "window,run,drun";
+      lines = 16;
+      padding = 30;
+      width = 45;
+      location = 0;
+      columns = 3;
+    };
+  };
+
+  services.polybar = {
+    enable = true;
+    package = pkgs.polybar.override {
+      pulseSupport = true;
+    };
+
+    catppuccin = {
+      enable = true;
+      flavor = "macchiato";
+    };
+
+    script = "polybar -r top &";
+
+    settings = {
+      "bar/top" = {
+        width = "90%";
+        height = "24";
+        offset.x = "5%";
+        offset.y = "8";
+
+        background = "\${colors.base}";
+        foreground = "\${colors.text}";
+
+        line.size = "2";
+        line.color = "\${colors.surface0}";
+
+        border.size = "0";
+        padding.left = "0";
+        padding.right = "1";
+        spacing = "0";
+        module.margin.left = "0";
+        module.margin.right = "2";
+        font = [
+          "Iosevka:pixelsize=11;0"
+          "Noto Color Emoji:scale=7;0"
+        ];
+
+        wm.restack = "bspwm";
+        cursor.click = "pointer";
+        cursor.scroll = "ns-resize";
+
+        modules = {
+          left = "bspwm";
+          center = "xwindow";
+          right = "audio date";
+        };
+      };
+
+      "module/xwindow" = {
+        type = "internal/xwindow";
+        label.maxlen = "120";
+      };
+
+      "module/bspwm" = {
+        type = "internal/bspwm";
+
+        label.focused = "%name%";
+        label.focused-background = "\${colors.surface1}";
+        label.focused-padding = "2";
+
+        label.occupied = "%name%";
+        label.occupied-padding = "2";
+
+        label.urgent = "%name%!";
+        label.urgent-background = "\${colors.maroon}";
+        label.urgent-foreground = "\${colors.crust}";
+        label.urgent-padding = "2";
+
+        label.empty = "%name%";
+        label.empty-padding = "2";
+      };
+
+      "module/date" = {
+        type = "internal/date";
+        interval = "5";
+
+        date = "%a %b %e";
+        date-alt = "%Y-%m-%d (wk. %V)";
+
+        time = "%H:%m";
+
+        label = "%date% %time%";
+      };
+
+      "module/audio" = {
+        type = "internal/pulseaudio";
+
+        format.volume-margin = "0";
+        format.volume = "<ramp-volume> <label-volume>";
+        label.volume.foreground = "\${colors.text}";
+
+        ramp.volume = [ "🔈" "🔉" "🔊" ];
+        label.muted = "🔇";
+      };
+
+      "settings" = {
+        screenchange.reload = true;
+      };
+
+      "global/wm" = {
+        margin.top = "0";
+        margin.bottom = "0";
+      };
+    };
   };
 
   home.pointerCursor = {
-    name = "Catppuccin-Macchiato-Dark-Cursors";
+    name = "catppuccin-macchiato-dark-cursors";
     package = pkgs.catppuccin-cursors.macchiatoDark;
     gtk.enable = true;
+    x11.enable = true;
   };
+  gtk.enable = true;
 }

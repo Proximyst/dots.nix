@@ -29,6 +29,8 @@
   console = {
     font = "Lat2-Terminus16";
     keyMap = "sv-latin1";
+    catppuccin.enable = true;
+    catppuccin.flavor = "macchiato";
   };
 
   security.polkit.enable = true;

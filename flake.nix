@@ -20,10 +20,6 @@
       url = "github:nix-community/fenix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    hyprland = {
-      url = "git+https://github.com/hyprwm/Hyprland?submodules=1&ref=v0.39.1&rev=fe7b748eb668136dd0558b7c8279bfcd7ab4d759";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
   };
 
   outputs = { self, nixpkgs, ... } @ inputs:

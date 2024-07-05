@@ -29,6 +29,9 @@
     gnumake
     unzip
 
+    # Games
+    prismlauncher
+
     # Rust toolchain
     (fenix.complete.withComponents [
       "cargo"
