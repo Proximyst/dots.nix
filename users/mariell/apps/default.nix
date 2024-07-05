@@ -8,7 +8,6 @@
     ./firefox.nix
     ./git.nix
     ./hyfetch.nix
-    ./neovim
     ./social.nix
     ./zsh.nix
   ];
@@ -40,5 +39,7 @@
       "rustc"
       "rustfmt"
     ])
+
+nvim-pkg
   ];
 }

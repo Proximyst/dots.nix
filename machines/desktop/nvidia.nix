@@ -3,10 +3,8 @@
 {
   boot.kernelModules = [ "nvidia" "nvidia_modeset" "nvidia_drm" ];
 
-  hardware.opengl = {
+  hardware.graphics = {
     enable = true;
-    driSupport = true;
-    driSupport32Bit = true;
     extraPackages = with pkgs;
       [
         vaapiVdpau
@@ -16,7 +14,6 @@
       [
         libva
       ];
-    setLdLibraryPath = true;
   };
 
   services.xserver.videoDrivers = [ "nvidia" ];

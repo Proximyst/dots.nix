@@ -8,10 +8,6 @@
     };
 
     catppuccin.url = "github:catppuccin/nix";
-    neovim-nightly-overlay = {
-      url = "github:nix-community/neovim-nightly-overlay";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
     walker = {
       url = "github:abenz1267/walker";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -19,6 +15,11 @@
     fenix = {
       url = "github:nix-community/fenix";
       inputs.nixpkgs.follows = "nixpkgs";
+    };
+    neovim-conf = {
+      url = "github:proximyst/neovim.nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.fenix.follows = "fenix";
     };
   };
 
@@ -58,7 +59,7 @@
                 inherit system;
                 inherit sys-conf;
                 inherit inputs;
-                inherit (inputs) fenix neovim-nightly-overlay;
+                inherit (inputs) fenix;
               };
             };
           }
