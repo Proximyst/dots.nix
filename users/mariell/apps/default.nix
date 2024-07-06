@@ -42,5 +42,6 @@
 
     nvim-pkg
     jetbrains.idea-community
+    corretto21
   ];
 }
