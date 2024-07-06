@@ -192,6 +192,7 @@
 
       "settings" = {
         screenchange.reload = true;
+        pseudo-transparency = true;
       };
 
       "global/wm" = {
