@@ -41,5 +41,6 @@
     ])
 
     nvim-pkg
+    jetbrains.idea-community
   ];
 }
