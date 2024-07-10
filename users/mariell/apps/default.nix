@@ -8,6 +8,7 @@
     ./firefox.nix
     ./git.nix
     ./hyfetch.nix
+    ./intellij.nix
     ./social.nix
     ./zsh.nix
   ];
@@ -41,7 +42,5 @@
     ])
 
     nvim-pkg
-    jetbrains.idea-community
-    corretto21
   ];
 }
