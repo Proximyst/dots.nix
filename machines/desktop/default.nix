@@ -1,6 +1,6 @@
 # This file is called by the flake's `nixosConfigurations` setup.
 
-{ config, pkgs, inputs, lib, ... }:
+{ inputs, ... }:
 
 {
   imports = [
