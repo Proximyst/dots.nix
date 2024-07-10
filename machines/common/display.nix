@@ -1,24 +1,4 @@
-{ pkgs, lib, inputs, ... }:
-
-let
-  catppuccin-sddm = { pkgs }: pkgs.stdenv.mkDerivation {
-    name = "catppuccin-sddm";
-    src = pkgs.fetchFromGitHub {
-      owner = "catppuccin";
-      repo = "sddm";
-      rev = "main";
-      hash = "sha256-sIqyTESrtNITrD1eBpqycMrVa/sXa0BO4AzDoXyPGSA=";
-    };
-    buildInputs = with pkgs; [ just gnused ];
-    buildPhase = ''
-      just build
-    '';
-    installPhase = ''
-      mkdir -p $out
-      cp -r ./dist/catppuccin-macchiato/* $out/
-    '';
-  };
-in
+{ pkgs, ... }:
 {
   # Remove mouse acceleration...
   services.libinput.enable = true;
@@ -31,19 +11,16 @@ in
       variant = "";
     };
 
-    #    xrandrHeads = [ "DP-1" ];
-    #    resolutions = [
-    #      {
-    #        x = 3440;
-    #        y = 1440;
-    #      }
-    #    ];
-
     windowManager.bspwm.enable = true;
   };
 
   environment.systemPackages = with pkgs; [
     catppuccin-cursors.macchiatoDark
+    (catppuccin-sddm.override {
+      flavor = "macchiato";
+      font = "Iosevka";
+      fontSize = "14";
+    })
   ];
   services.displayManager = {
     defaultSession = "none+bspwm";
@@ -51,7 +28,7 @@ in
       enable = true;
       autoNumlock = true;
       package = pkgs.kdePackages.sddm;
-      theme = "${catppuccin-sddm { inherit pkgs; }}";
+      theme = "catppuccin-macchiato";
     };
   };
   services.xserver.displayManager.setupCommands = ''
