@@ -11,6 +11,8 @@
     xclip
     # For screenshots
     maim
+    # For the external rules
+    xdo
   ];
 
   xsession.windowManager.bspwm =
@@ -23,6 +25,8 @@
         bspc config pointer_action2 resize_side
         bspc config pointer_action3 resize_corner
         bspc config automatic_scheme spiral
+        bspc config ignore_ewmh_focus true
+        bspc config external_rules_command "${./bspwm-external-rules.sh}"
 
         for id in "$(xinput list --short | grep 'pointer' | grep 'Logitech G Pro' | perl -ne 'while (m/id=(\d+)/g) { print "$1\n"; }')"; do
           xinput --set-prop "$id" 'libinput Accel Speed' -0.1
@@ -39,13 +43,9 @@
       ];
 
       rules = {
+        # See also the external rules shell.
         "discord" = {
           desktop = "^2";
-          follow = false;
-          focus = false;
-        };
-        "spotify" = {
-          desktop = "^3";
           follow = false;
           focus = false;
         };
