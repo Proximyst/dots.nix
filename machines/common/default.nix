@@ -12,50 +12,9 @@
     ./display.nix
     ./overlays.nix
     ./docker.nix
+    ./users.nix
+    (import ./nix.nix modIn)
   ];
-
-  programs.zsh.enable = true;
-  users = {
-    defaultUserShell = pkgs.zsh;
-    mutableUsers = true; # allow using `passwd` on users
-
-    users.root = {
-      home = "/root";
-      uid = 0;
-      group = "root";
-      initialHashedPassword = lib.mkDefault ""; # allow password-less login
-    };
-  };
-
-  nixpkgs.config.allowUnfree = true;
-  nix =
-    let
-      flakeInputs = lib.filterAttrs (name: value: (value ? outputs) && (name != "self")) inputs;
-    in
-    {
-      # Enable flakes.
-      settings.experimental-features = [ "nix-command" "flakes" ];
-
-      # Clean up unused revisions & packages.
-      gc = {
-        automatic = true;
-        dates = "weekly";
-        options = "--delete-older-than 14d";
-      };
-      # Replace duplicates in /nix/store with hard-links.
-      optimise = {
-        automatic = true;
-        dates = [ "17:55" ];
-      };
-      settings.auto-optimise-store = true;
-      # Use as many cores as possible.
-      settings.build-cores = 8;
-      settings.max-jobs = "auto";
-      # Run nix jobs in a sandbox
-      settings.sandbox = true;
-
-      registry = builtins.mapAttrs (name: v: { flake = v; }) flakeInputs;
-    };
 
   programs.neovim = {
     enable = true;
