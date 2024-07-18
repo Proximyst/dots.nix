@@ -1,16 +1,16 @@
-{ inputs }:
-
-{ config
+{ inputs
 , pkgs
 , lib
 , ...
-}:
+} @ modIn:
 
 {
   imports = [
+    (import ./catppuccin.nix modIn)
+    ./console.nix
     ./fonts.nix
     ./display.nix
-    (import ./overlays.nix { inherit inputs; })
+    ./overlays.nix
     ./docker.nix
   ];
 

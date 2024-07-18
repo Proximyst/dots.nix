@@ -14,24 +14,12 @@
     windowManager.bspwm.enable = true;
   };
 
-  environment.systemPackages = with pkgs; [
-    catppuccin-cursors.macchiatoDark
-    (catppuccin-sddm.override {
-      flavor = "macchiato";
-      font = "Iosevka";
-      fontSize = "14";
-    })
-  ];
   services.displayManager = {
     defaultSession = "none+bspwm";
     sddm = {
       enable = true;
       autoNumlock = true;
       package = pkgs.kdePackages.sddm;
-      theme = "catppuccin-macchiato";
-      settings = {
-        Theme.CursorTheme = "catppuccin-macchiato-dark-cursors";
-      };
     };
   };
   services.xserver.displayManager.setupCommands = ''

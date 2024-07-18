@@ -1,12 +1,16 @@
 {
   inputs = {
+    # Nixpkgs is the package registry of NixOS.
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
-
+    # Home-manager handles local users' configurations.
     home-manager = {
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    # This just helps set up basic things with the flake.
+    flake-utils.url = "github:numtide/flake-utils";
 
+    # Various applications and whatnot.
     catppuccin.url = "github:catppuccin/nix";
     walker = {
       url = "github:abenz1267/walker";
@@ -23,49 +27,38 @@
     };
   };
 
-  outputs = { self, nixpkgs, ... } @ inputs:
-    let
-      sys-conf = import ./users/mariell/config.nix;
-      system = "x86_64-linux";
-      inherit inputs;
-    in
+  outputs = { self, nixpkgs, flake-utils, ... } @ inputs:
     {
-      nixosConfigurations.mariell = inputs.nixpkgs.lib.nixosSystem {
-        inherit system;
+      nixosConfigurations.desktop = inputs.nixpkgs.lib.nixosSystem (
+        let system = "x86_64-linux";
+        in {
+          inherit system;
+          specialArgs = {
+            inherit system inputs;
+          };
 
-        specialArgs = {
-          inherit inputs;
-        };
+          modules = [
+            # Set up the machine itself
+            ./machines/common
+            ./machines/desktop
 
-        modules = [
-          # Set up the system itself.
-          ({ config, pkgs, lib, ... }: (
-            import ./machines/desktop {
-              inherit inputs; # pass in the flake inputs
-              inherit config pkgs lib;
-            }
-          ))
-
-          # Set up home-manager.
-          inputs.home-manager.nixosModules.home-manager
-          {
-            home-manager = {
-              # Prefer the system-level pkgs, as opposed to a separate set.
-              useGlobalPkgs = true;
-              # Enable installing packages via users.users.<...>.packages.
-              useUserPackages = true;
-              # Add extra arguments passed to ALL home-manager modules.
-              extraSpecialArgs = {
-                inherit system;
-                inherit sys-conf;
-                inherit inputs;
-                inherit (inputs) fenix;
+            # Set up home-manager for the main user
+            inputs.home-manager.nixosModules.home-manager
+            {
+              home-manager = {
+                useGlobalPkgs = true;
+                useUserPackages = true;
+                # These are passed to ALL home-manager modules.
+                extraSpecialArgs = {
+                  inherit system inputs;
+                };
               };
-            };
-          }
-        ];
-      };
-
-      formatter."${system}" = nixpkgs.legacyPackages."${system}".nixpkgs-fmt;
-    };
+            }
+          ];
+        }
+      );
+    }
+    // (flake-utils.lib.eachDefaultSystem (system: {
+      formatter = nixpkgs.legacyPackages."${system}".nixpkgs-fmt;
+    }));
 }

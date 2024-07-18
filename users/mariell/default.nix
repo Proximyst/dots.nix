@@ -1,9 +1,7 @@
 # This file is called from the system-level configuration, not home-manager.
 # The intent is to set up home-manager here.
 
-{ inputs }:
-
-{ config, pkgs, ... }:
+{ inputs, ... }:
 
 let
   sys-conf = import ./config.nix;

@@ -1,6 +1,4 @@
-{ inputs }:
-
-_:
+{ inputs, ... }:
 
 let
   overlays = [

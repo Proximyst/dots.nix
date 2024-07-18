@@ -1,11 +1,8 @@
-# This file is called by the flake's `nixosConfigurations` setup.
-
 { inputs, ... }:
 
 {
   imports = [
     # Required, basic modules. Without these, the system will not be usable to any extent.
-    (import ../common { inherit inputs; })
     ./hardware.nix
     ./nvidia.nix
 
@@ -14,10 +11,7 @@
 
     # User config
     (import ../../users/mariell { inherit inputs; })
-    inputs.catppuccin.nixosModules.catppuccin
   ];
-
-  catppuccin.flavor = "macchiato";
 
   time.timeZone = "Europe/Stockholm";
 
@@ -29,8 +23,6 @@
   console = {
     font = "Lat2-Terminus16";
     keyMap = "sv-latin1";
-    catppuccin.enable = true;
-    catppuccin.flavor = "macchiato";
   };
 
   security.polkit.enable = true;
