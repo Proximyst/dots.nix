@@ -30,7 +30,7 @@ let
   platformConfig = {
     linux = "";
     darwin = ''
-      export PATH=/run/current-system/etc/profiles/per-user/mariellh/bin:"$PATH"
+      export PATH=/run/current-system/etc/profiles/per-user/mariellh/bin:/usr/local/bin:"$PATH"
 
       [ -f "$HOME/.cargo/env" ] && source "$HOME/.cargo/env"
       [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
