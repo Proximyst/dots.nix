@@ -17,10 +17,6 @@
 
     # Various applications and whatnot.
     catppuccin.url = "github:catppuccin/nix";
-    walker = {
-      url = "github:abenz1267/walker";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
     fenix = {
       url = "github:nix-community/fenix";
       inputs.nixpkgs.follows = "nixpkgs";

@@ -50,27 +50,6 @@
         "url": "https://flakehub.com/f/edolstra/flake-compat/1.tar.gz"
       }
     },
-    "flake-parts": {
-      "inputs": {
-        "nixpkgs-lib": [
-          "walker",
-          "nixpkgs"
-        ]
-      },
-      "locked": {
-        "lastModified": 1719994518,
-        "narHash": "sha256-pQMhCCHyQGRzdfAkdJ4cIWiw+JNuWsTX7f0ZYSyz0VY=",
-        "owner": "hercules-ci",
-        "repo": "flake-parts",
-        "rev": "9227223f6d922fee3c7b190b2cc238a99527bbb7",
-        "type": "github"
-      },
-      "original": {
-        "owner": "hercules-ci",
-        "repo": "flake-parts",
-        "type": "github"
-      }
-    },
     "flake-utils": {
       "inputs": {
         "systems": "systems"
@@ -139,11 +118,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1720215859,
-        "narHash": "sha256-EIdyDnnuymD/tJ4hsNoh7GOwkDEs+Uf0bI7fAMH4xbc=",
+        "lastModified": 1721812387,
+        "narHash": "sha256-eARnkvk51+cP5WRAtn1Ny/KkdvvQAWI5mn81AiNKkzY=",
         "owner": "proximyst",
         "repo": "neovim.nix",
-        "rev": "a1ea70d1c105bde3c27dd74b4d9523ded5359255",
+        "rev": "392be15d22d10669926022bad26eec5564861970",
         "type": "github"
       },
       "original": {
@@ -197,8 +176,7 @@
         "home-manager": "home-manager",
         "neovim-conf": "neovim-conf",
         "nix-darwin": "nix-darwin",
-        "nixpkgs": "nixpkgs",
-        "walker": "walker"
+        "nixpkgs": "nixpkgs"
       }
     },
     "rust-analyzer-src": {
@@ -245,27 +223,6 @@
       "original": {
         "owner": "nix-systems",
         "repo": "default",
-        "type": "github"
-      }
-    },
-    "walker": {
-      "inputs": {
-        "flake-parts": "flake-parts",
-        "nixpkgs": [
-          "nixpkgs"
-        ]
-      },
-      "locked": {
-        "lastModified": 1721808775,
-        "narHash": "sha256-WTkF/JPar7Ab6WuB6te76PH/XdrhPlyMEQ7DFswWvzE=",
-        "owner": "abenz1267",
-        "repo": "walker",
-        "rev": "7b64f692ffa2c867d0b80696a84b138d07fe839a",
-        "type": "github"
-      },
-      "original": {
-        "owner": "abenz1267",
-        "repo": "walker",
         "type": "github"
       }
     }

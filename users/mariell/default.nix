@@ -21,7 +21,6 @@ in
       imports = [
         # From flake
         inputs.catppuccin.homeManagerModules.catppuccin
-        inputs.walker.homeManagerModules.walker
 
         # From config
         ./ui
