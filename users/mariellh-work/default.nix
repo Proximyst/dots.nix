@@ -1,10 +1,12 @@
 { pkgs, inputs, ... }:
 
 {
-imports = [
-        inputs.catppuccin.homeManagerModules.catppuccin
-../mariell/apps/zsh.nix
-];
+  imports = [
+    inputs.catppuccin.homeManagerModules.catppuccin
+    ../mariell/apps/zsh.nix
+  ];
+
+  catppuccin.flavor = "macchiato";
 
   home = {
     stateVersion = "24.05";

@@ -6,7 +6,7 @@
 let
   platformPkgs = {
     linux = with pkgs; [
-    xclip
+      xclip
     ];
     darwin = with pkgs; [
     ];
@@ -30,16 +30,16 @@ let
   platformConfig = {
     linux = "";
     darwin = ''
-export PATH=/run/current-system/etc/profiles/per-user/mariellh/bin:"$PATH"
+      export PATH=/run/current-system/etc/profiles/per-user/mariellh/bin:"$PATH"
 
-[ -f "$HOME/.cargo/env" ] && source "$HOME/.cargo/env"
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
-eval "$(zoxide init zsh)"
-. $HOME/.asdf/plugins/java/set-java-home.zsh
+      [ -f "$HOME/.cargo/env" ] && source "$HOME/.cargo/env"
+      [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+      eval "$(zoxide init zsh)"
+      . $HOME/.asdf/plugins/java/set-java-home.zsh
 
-export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+      export NVM_DIR="$HOME/.nvm"
+      [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+      [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
     '';
   };
 in
