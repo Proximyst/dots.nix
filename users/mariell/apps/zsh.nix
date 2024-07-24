@@ -1,11 +1,53 @@
-{ pkgs, ... }:
+{ pkgs
+, platform
+, ...
+}:
 
+let
+  platformPkgs = {
+    linux = with pkgs; [
+    xclip
+    ];
+    darwin = with pkgs; [
+    ];
+  };
+
+  platformAliases = {
+    linux = {
+      copy = "xclip -selection clipboard";
+      paste = "xclip -o -selection clipboard";
+    };
+    darwin = {
+      copy = "pbcopy";
+      paste = "pbpaste";
+      kssh = "kitty +kitten ssh";
+      k = "kubectl";
+      dehyphen = "tr -d '-'";
+    };
+  };
+
+  # TODO: Replace this with Nix management
+  platformConfig = {
+    linux = "";
+    darwin = ''
+export PATH=/run/current-system/etc/profiles/per-user/mariellh/bin:"$PATH"
+
+[ -f "$HOME/.cargo/env" ] && source "$HOME/.cargo/env"
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+eval "$(zoxide init zsh)"
+. $HOME/.asdf/plugins/java/set-java-home.zsh
+
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+    '';
+  };
+in
 {
-  home.packages = with pkgs; [
+  home.packages = (with pkgs; [
     fzf
     eza
-    xclip
-  ];
+  ]) ++ platformPkgs."${platform}";
 
   programs.zsh = {
     enable = true;
@@ -63,9 +105,7 @@
       ll = "l -h";
       la = "l -aF";
       j = "jump";
-      copy = "xclip -selection clipboard";
-      paste = "xclip -o -selection clipboard";
-    };
+    } // platformAliases."${platform}";
 
     oh-my-zsh.extraConfig = ''
       function mde() {
@@ -98,6 +138,8 @@
         fi
         gsw -C "mariellh/$@"
       }
+
+      ${platformConfig."${platform}"}
     '';
   };
 }

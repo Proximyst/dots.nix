@@ -60,6 +60,7 @@
                 # These are passed to ALL home-manager modules.
                 extraSpecialArgs = {
                   inherit system inputs;
+                  platform = "linux";
                 };
               };
             }
@@ -102,6 +103,7 @@
                 # Add extra arguments passed to ALL home-manager modules.
                 extraSpecialArgs = {
                   inherit system inputs;
+                  platform = "darwin";
                 };
 
                 users.mariellh = {

@@ -1,6 +1,11 @@
-{ pkgs, ... }:
+{ pkgs, inputs, ... }:
 
 {
+imports = [
+        inputs.catppuccin.homeManagerModules.catppuccin
+../mariell/apps/zsh.nix
+];
+
   home = {
     stateVersion = "24.05";
 
