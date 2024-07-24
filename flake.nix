@@ -10,6 +10,11 @@
     # This just helps set up basic things with the flake.
     flake-utils.url = "github:numtide/flake-utils";
 
+    nix-darwin = {
+      url = "github:lnl7/nix-darwin/master";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     # Various applications and whatnot.
     catppuccin.url = "github:catppuccin/nix";
     walker = {
@@ -28,6 +33,10 @@
   };
 
   outputs = { self, nixpkgs, flake-utils, ... } @ inputs:
+    let
+      sys-conf = import ./users/mariell/config.nix;
+      inherit inputs;
+    in
     {
       nixosConfigurations.desktop = inputs.nixpkgs.lib.nixosSystem (
         let system = "x86_64-linux";
@@ -51,6 +60,52 @@
                 # These are passed to ALL home-manager modules.
                 extraSpecialArgs = {
                   inherit system inputs;
+                };
+              };
+            }
+          ];
+        }
+      );
+
+      darwinConfigurations.work = inputs.nix-darwin.lib.darwinSystem (
+        let
+          system = "aarch64-darwin";
+          nixpkgsConf = {
+            inherit system;
+            config.allowUnfree = true;
+            overlays = [
+              inputs.fenix.overlays.default
+              inputs.neovim-conf.overlays.default
+            ];
+          };
+        in
+        {
+          specialArgs = {
+            inherit inputs;
+          };
+
+          modules = [
+            (args: import ./machines/darwin ({
+              inherit inputs;
+              pkgs = import nixpkgs nixpkgsConf;
+            } // args))
+
+            inputs.home-manager.darwinModules.home-manager
+            {
+              nixpkgs = nixpkgsConf;
+
+              home-manager = {
+                # Prefer the system-level pkgs, as opposed to a separate set.
+                useGlobalPkgs = true;
+                # Enable installing packages via users.users.<...>.packages.
+                useUserPackages = true;
+                # Add extra arguments passed to ALL home-manager modules.
+                extraSpecialArgs = {
+                  inherit system inputs;
+                };
+
+                users.mariellh = {
+                  imports = [ ./users/mariellh-work ];
                 };
               };
             }
