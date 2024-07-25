@@ -27,7 +27,6 @@
 
   security.polkit.enable = true;
 
-  sound.enable = false; # I use PipeWire
   security.rtkit.enable = true;
   services.pipewire = {
     enable = true;
