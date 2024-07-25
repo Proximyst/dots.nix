@@ -1,5 +1,13 @@
+{ inputs, ... }:
 { pkgs, ... }:
+
+let flavor = "macchiato";
+in
 {
+  imports = [
+    inputs.catppuccin.nixosModules.catppuccin
+  ];
+
   # Remove mouse acceleration...
   services.libinput.enable = true;
   services.libinput.mouse.accelProfile = "flat";
@@ -14,12 +22,33 @@
     windowManager.bspwm.enable = true;
   };
 
+  catppuccin = {
+    inherit flavor;
+  };
+
+  console.catppuccin = {
+    enable = true;
+    inherit flavor;
+  };
+
+  environment.systemPackages = with pkgs; [
+    catppuccin-cursors.macchiatoDark
+    (catppuccin-sddm.override {
+      inherit flavor;
+      font = "Iosevka";
+      fontSize = "14";
+    })
+  ];
   services.displayManager = {
     defaultSession = "none+bspwm";
     sddm = {
       enable = true;
       autoNumlock = true;
       package = pkgs.kdePackages.sddm;
+      theme = "catppuccin-sddm";
+      settings = {
+        Theme.CursorTheme = "catppuccin-macchiato-dark-cursors";
+      };
     };
   };
   services.xserver.displayManager.setupCommands = ''

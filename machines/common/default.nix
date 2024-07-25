@@ -1,15 +1,10 @@
-{ inputs
-, pkgs
-, lib
-, ...
-} @ modIn:
+modIn:
 
 {
   imports = [
-    (import ./catppuccin.nix modIn)
     ./console.nix
     ./fonts.nix
-    ./display.nix
+    (import ./display.nix modIn)
     ./overlays.nix
     ./docker.nix
     ./users.nix
