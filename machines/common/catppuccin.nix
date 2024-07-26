@@ -18,7 +18,7 @@ in
   };
 
   environment.systemPackages = with pkgs; [
-    catppuccin-cursors.macchiatoDark
+    catppuccin-cursors."${flavor}Dark"
     (catppuccin-sddm.override {
       inherit flavor;
       font = "Iosevka";
@@ -26,9 +26,9 @@ in
     })
   ];
   services.displayManager.sddm = {
-    theme = "catppuccin-sddm";
+    theme = "catppuccin-${flavor}";
     settings = {
-      Theme.CursorTheme = "catppuccin-macchiato-dark-cursors";
+      Theme.CursorTheme = "catppuccin-${flavor}-dark-cursors";
     };
   };
 }
