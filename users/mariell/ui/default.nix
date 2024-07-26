@@ -169,12 +169,12 @@
 
       "module/date" = {
         type = "internal/date";
-        interval = "5";
+        interval = "5.0";
 
         date = "%a %b %e";
         date-alt = "%Y-%m-%d (wk. %V)";
 
-        time = "%H:%m";
+        time = "%H:%M";
 
         label = "%date% %time%";
       };
