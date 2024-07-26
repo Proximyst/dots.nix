@@ -79,32 +79,31 @@ in
       ":wq" = "exit";
       ":x" = "exit";
       gg = "glods";
-      "gc!" = "gc --amend";
-      "gcf" = "gc --fixup";
-      "gp!" = "gp --force";
-      gdh = "gd HEAD";
-      gdm = "gd \\$(git_main_branch)";
-      gdom = "gd origin/\\$(git_main_branch)";
-      gdum = "gd upstream/\\$(git_main_branch)";
-      grbom = "grb origin/\\$(git_main_branch)";
-      grbum = "grb upstream/\\$(git_main_branch)";
-      grboom = "grbo origin/\\$(git_main_branch)";
-      grboum = "grbo upstream/\\$(git_main_branch)";
-      grhom = "grh origin/\\$(git_main_branch)";
-      grhum = "grh upstream/\\$(git_main_branch)";
-      grhhom = "grhh origin/\\$(git_main_branch)";
-      grhhum = "grhh upstream/\\$(git_main_branch)";
-      gs = "gst";
-      grao = "gra origin";
-      grau = "gra upstream";
-      grseto = "grset origin";
-      grsetu = "grset upstream";
-      gcpnc = "gcp --no-commit";
+      "gc!" = "git commit --amend";
+      "gcf" = "git commit --fixup";
+      "gp!" = "git push --force";
+      gdh = "git diff HEAD";
+      gdm = "git diff \$(git_main_branch)";
+      gdom = "git diff origin/\$(git_main_branch)";
+      gdum = "git diff upstream/\$(git_main_branch)";
+      grbom = "git rebase origin/\$(git_main_branch)";
+      grbum = "git rebase upstream/\$(git_main_branch)";
+      grboom = "git rebase --onto origin/\$(git_main_branch)";
+      grboum = "git rebase --onto upstream/\$(git_main_branch)";
+      grhom = "git reset origin/\$(git_main_branch)";
+      grhum = "git reset upstream/\$(git_main_branch)";
+      grhhom = "git reset --hard origin/\$(git_main_branch)";
+      grhhum = "git reset --hard upstream/\$(git_main_branch)";
+      gs = "git status";
+      grao = "git remote add origin";
+      grau = "git remote add upstream";
+      grseto = "git remote set-url origin";
+      grsetu = "git remote set-url upstream";
+      gcpnc = "git cherry-pick --no-commit";
       ls = "eza -F";
       l = "ls -l --git";
       ll = "l -h";
       la = "l -aF";
-      j = "jump";
     } // platformAliases."${platform}";
 
     oh-my-zsh.extraConfig = ''
@@ -128,7 +127,7 @@ in
           echo "fatal: no branch name given" >&2
           return 1
         fi
-        gswc "mariellh/$@"
+        git switch -c "mariellh/$@"
       }
 
       function gswCm() {
@@ -136,7 +135,7 @@ in
           echo "fatal: no branch name given" >&2
           return 1
         fi
-        gsw -C "mariellh/$@"
+        git switch -C "mariellh/$@"
       }
 
       ${platformConfig."${platform}"}
