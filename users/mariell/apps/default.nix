@@ -14,7 +14,6 @@
   ];
 
   home.packages = with pkgs; [
-    spotify
     _1password
 
     # Nicer CLI tools
