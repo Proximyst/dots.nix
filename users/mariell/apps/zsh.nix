@@ -35,7 +35,8 @@ let
       [ -f "$HOME/.cargo/env" ] && source "$HOME/.cargo/env"
       [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
       eval "$(zoxide init zsh)"
-      . $HOME/.asdf/plugins/java/set-java-home.zsh
+      . "$HOME/.asdf/asdf.sh"
+      . "$HOME/.asdf/plugins/java/set-java-home.zsh"
 
       export NVM_DIR="$HOME/.nvm"
       [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
