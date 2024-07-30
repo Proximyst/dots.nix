@@ -58,6 +58,7 @@
       "super + Escape" = "pkill --signal SIGUSR1 -x sxhkd";
       "super + b" = "firefox";
       "super + q" = "bspc node -c";
+      "super + g" = "bspc node -s biggest.local";
       "super + shift + q" = "bspc node -k";
       "super + d" = "rofi -show drun";
       "super + shift + 4" = "maim -s | xclip -selection clipboard -t image/png";
