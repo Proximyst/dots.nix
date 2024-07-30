@@ -3,6 +3,12 @@
   # Remove mouse acceleration...
   services.libinput.enable = true;
   services.libinput.mouse.accelProfile = "flat";
+  environment.etc."libinput/local-overrides.quirks".text = ''
+  [mouse]
+  MatchName=*
+  ModelBouncingKeys=1
+  '';
+
   services.xserver = {
     enable = true;
 
