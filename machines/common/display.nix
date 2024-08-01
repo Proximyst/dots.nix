@@ -4,8 +4,8 @@
   services.libinput.enable = true;
   services.libinput.mouse.accelProfile = "flat";
   environment.etc."libinput/local-overrides.quirks".text = ''
-  [mouse]
-  MatchName=*
+  [Logitech G Pro]
+  MatchName=Logitech G Pro
   ModelBouncingKeys=1
   '';
 

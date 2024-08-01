@@ -13,6 +13,7 @@
     maim
     # For the external rules
     xdo
+    xdotool
   ];
 
   xsession.windowManager.bspwm =
@@ -77,6 +78,9 @@
 
       super + {y,shift + y,s,f}
         bspc node -t {tiled,pseudo_tiled,floating,fullscreen}
+
+      super + shift + f
+        xdotool getwindowfocus windowsize 3440 1440 && xdotool getwindowfocus windowmove 0 0
     '';
   };
 
