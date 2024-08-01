@@ -28,6 +28,7 @@
     # Basically necessities
     gnumake
     unzip
+    file
 
     # Games
     prismlauncher

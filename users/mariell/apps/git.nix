@@ -1,6 +1,10 @@
-_:
+{ pkgs, ... }:
 
 {
+  home.packages = with pkgs; [
+    gnupg
+  ];
+
   programs.git = {
     enable = true;
     lfs.enable = true;
