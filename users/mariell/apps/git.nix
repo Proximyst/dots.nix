@@ -30,7 +30,7 @@
       user.signingkey = "~/.ssh/id_ed25519.pub";
       feature.manyFiles = true;
       lfs.locksverify = false;
-      commit.sign = true;
+      commit.gpgsign = true;
     };
   };
 }
