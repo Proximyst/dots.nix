@@ -20,7 +20,7 @@
     {
       enable = true;
       extraConfig = ''
-        bspc monitor -d 1 2 3 4 5
+        bspc monitor -d browser discord active spotify 5 6 7 8 9 10
         bspc config pointer_modifier mod4
         bspc config pointer_action1 move
         bspc config pointer_action2 resize_side
@@ -41,12 +41,18 @@
         "polybar"
         "discord"
         "spotify"
+        "firefox"
       ];
 
       rules = {
         # See also the external rules shell.
         "discord" = {
           desktop = "^2";
+          follow = false;
+          focus = false;
+        };
+        "firefox" = {
+          desktop = "^1";
           follow = false;
           focus = false;
         };
@@ -70,8 +76,8 @@
       super + {_, ctrl +}{h,j,k,l}
         bspc node -{f,s} {west,south,north,east}
 
-      super + {_, ctrl +}{1-5}
-        bspc {desktop -f,node -d} '^{1-5}'
+      super + {_, ctrl +}{1-9,10}
+        bspc {desktop -f,node -d} '^{1-9,10}'
 
       super + {p,o,comma,period}
         bspc node -f @{parent,brother,first,second}

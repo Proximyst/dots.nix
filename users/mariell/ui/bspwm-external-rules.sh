@@ -25,7 +25,7 @@ state='' \
 sticky='' \
 urgent=
 
-spotify() { desktop="^3" follow="off" focus="off"; }
+spotify() { desktop="^4" follow="off" focus="off"; }
 
 case "$instance.$class" in
 	*.Spotify) spotify ;;
