@@ -70,6 +70,7 @@
       "super + shift + q" = "bspc node -k";
       "super + d" = "rofi -show drun";
       "super + shift + 4" = "maim -s | xclip -selection clipboard -t image/png";
+      "super + shift + ctrl + l" = "systemctl suspend";
     };
 
     extraConfig = ''
