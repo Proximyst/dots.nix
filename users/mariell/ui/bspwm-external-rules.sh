@@ -25,13 +25,17 @@ state='' \
 sticky='' \
 urgent=
 
+steam_game() { desktop="^3" state="tiled"; }
 spotify() { desktop="^4" follow="off" focus="off"; }
 
 case "$instance.$class" in
+	*.steam_app_*) steam_game ;;
+	*.proton*) steam_game ;;
 	*.Spotify) spotify ;;
 	.)
 		case "$(exec ps -p "$(exec pdo pid "$id")" -o comm= 2>/dev/null)" in
 			spotify) spotify ;;
+			SquadGame*) steam_game ;;
 			*) exit 0 ;;
 		esac
 		;;

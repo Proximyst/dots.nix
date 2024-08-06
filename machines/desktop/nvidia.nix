@@ -25,7 +25,7 @@
     open = false;
     nvidiaSettings = true;
     package = config.boot.kernelPackages.nvidiaPackages.beta;
-    forceFullCompositionPipeline = true;
+    # forceFullCompositionPipeline = true;
   };
 
   environment.systemPackages = with pkgs;
