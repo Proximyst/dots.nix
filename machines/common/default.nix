@@ -25,6 +25,8 @@
 
   i18n.defaultLocale = "en_GB.UTF-8";
 
+  powerManagement.enable = true;
+
   networking.firewall.enable = true;
 
   # This option defines the first version of NixOS you have installed on this particular machine,
