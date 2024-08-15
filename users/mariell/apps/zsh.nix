@@ -35,7 +35,8 @@ let
       [ -f "$HOME/.cargo/env" ] && source "$HOME/.cargo/env"
       [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
       eval "$(zoxide init zsh)"
-      . "$HOME/.asdf/asdf.sh"
+      # Yes, yes, this SHOULD use `brew --prefix asdf`, but that's kinda slow so nty.
+      . "/opt/homebrew/opt/asdf/libexec/asdf.sh"
       . "$HOME/.asdf/plugins/java/set-java-home.zsh"
 
       export NVM_DIR="$HOME/.nvm"
