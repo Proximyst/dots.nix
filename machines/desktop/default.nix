@@ -1,4 +1,4 @@
-{ inputs, ... }:
+{ inputs, ... } @ inArgs:
 
 {
   imports = [
@@ -10,7 +10,7 @@
     ./boot.nix
 
     # User config
-    (import ../../users/mariell { inherit inputs; })
+    (import ../../users/mariell inArgs)
   ];
 
   time.timeZone = "Europe/Stockholm";

@@ -1,55 +1,14 @@
-{ pkgs
-, platform
-, ...
-}:
+{ pkgs, ... }:
 
-let
-  platformPkgs = {
-    linux = with pkgs; [
-      xclip
-    ];
-    darwin = with pkgs; [
-    ];
-  };
-
-  platformAliases = {
-    linux = {
-      copy = "xclip -selection clipboard";
-      paste = "xclip -o -selection clipboard";
-    };
-    darwin = {
-      copy = "pbcopy";
-      paste = "pbpaste";
-      kssh = "kitty +kitten ssh";
-      k = "kubectl";
-      dehyphen = "tr -d '-'";
-    };
-  };
-
-  # TODO: Replace this with Nix management
-  platformConfig = {
-    linux = "";
-    darwin = ''
-      export PATH=/run/current-system/etc/profiles/per-user/mariellh/bin:/usr/local/bin:"$PATH"
-
-      [ -f "$HOME/.cargo/env" ] && source "$HOME/.cargo/env"
-      [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
-      eval "$(zoxide init zsh)"
-      # Yes, yes, this SHOULD use `brew --prefix asdf`, but that's kinda slow so nty.
-      . "/opt/homebrew/opt/asdf/libexec/asdf.sh"
-      . "$HOME/.asdf/plugins/java/set-java-home.zsh"
-
-      export NVM_DIR="$HOME/.nvm"
-      [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-      [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
-    '';
-  };
-in
 {
   home.packages = (with pkgs; [
     fzf
     eza
-  ]) ++ platformPkgs."${platform}";
+  ]) ++ (if pkgs.stdenv.isLinux
+  then with pkgs; [
+    xclip
+  ]
+  else [ ]);
 
   programs.zsh = {
     enable = true;
@@ -106,7 +65,18 @@ in
       l = "ls -l --git";
       ll = "l -h";
       la = "l -aF";
-    } // platformAliases."${platform}";
+    } // (if pkgs.stdenv.isLinux
+    then {
+      copy = "xclip -selection clipboard";
+      paste = "xclip -o -selection clipboard";
+    }
+    else {
+      copy = "pbcopy";
+      paste = "pbpaste";
+      kssh = "kitty +kitten ssh";
+      k = "kubectl";
+      dehyphen = "tr -d '-'";
+    });
 
     oh-my-zsh.extraConfig = ''
       function mde() {
@@ -139,8 +109,21 @@ in
         fi
         git switch -C "mariellh/$@"
       }
+    '' + (if pkgs.stdenv.isLinux
+    then ""
+    else ''
+      export PATH=/run/current-system/etc/profiles/per-user/mariellh/bin:/usr/local/bin:"$PATH"
 
-      ${platformConfig."${platform}"}
-    '';
+      [ -f "$HOME/.cargo/env" ] && source "$HOME/.cargo/env"
+      [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+      eval "$(zoxide init zsh)"
+      # Yes, yes, this SHOULD use `brew --prefix asdf`, but that's kinda slow so nty.
+      . "/opt/homebrew/opt/asdf/libexec/asdf.sh"
+      . "$HOME/.asdf/plugins/java/set-java-home.zsh"
+
+      export NVM_DIR="$HOME/.nvm"
+      [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+      [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+    '');
   };
 }

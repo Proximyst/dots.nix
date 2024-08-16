@@ -29,17 +29,16 @@
   };
 
   outputs = { self, nixpkgs, flake-utils, ... } @ inputs:
-    let
-      sys-conf = import ./users/mariell/config.nix;
-      inherit inputs;
-    in
     {
       nixosConfigurations.desktop = inputs.nixpkgs.lib.nixosSystem (
-        let system = "x86_64-linux";
-        in {
+        let
+          system = "x86_64-linux";
+          user = "mariell";
+        in
+        {
           inherit system;
           specialArgs = {
-            inherit system inputs;
+            inherit system inputs user;
           };
 
           modules = [
@@ -55,8 +54,7 @@
                 useUserPackages = true;
                 # These are passed to ALL home-manager modules.
                 extraSpecialArgs = {
-                  inherit system inputs;
-                  platform = "linux";
+                  inherit system inputs user;
                 };
               };
             }
@@ -99,7 +97,6 @@
                 # Add extra arguments passed to ALL home-manager modules.
                 extraSpecialArgs = {
                   inherit system inputs;
-                  platform = "darwin";
                 };
 
                 users.mariellh = {
