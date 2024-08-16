@@ -1,7 +1,7 @@
 .PHONY: switch
 switch:
 	git add --all
-	sudo nixos-rebuild switch --flake '.#desktop' --show-trace
+	nixos-rebuild switch --flake '.#desktop' --show-trace --use-remote-sudo
 
 .PHONY: darwin
 darwin:
