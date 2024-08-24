@@ -7,19 +7,17 @@ with lib;
 {
   options.modules.zsh = {
     enable = pkgs.my.mkDisableOption "zsh";
+    zoxide.enable = mkEnableOption "zsh.zoxide";
   };
 
   config = mkIf cfg.enable {
-    home.packages = with pkgs; [
-      fzf
-      eza
-    ] ++ (
-      (if pkgs.stdenv.isLinux
-      then with pkgs; [
-        xclip
-      ]
-      else [ ])
-    );
+    home.packages = mkMerge [
+      (with pkgs; [
+        fzf
+        eza
+      ])
+      (mkIf pkgs.stdenv.isLinux (with pkgs; [ xclip ]))
+    ];
 
     programs.zsh = {
       enable = true;
@@ -114,6 +112,11 @@ with lib;
           git switch -C "mariellh/$@"
         }
       '';
+    };
+
+    programs.zoxide = mkIf cfg.zoxide.enable {
+      enable = true;
+      enableZshIntegration = true;
     };
   };
 }

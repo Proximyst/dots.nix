@@ -26,6 +26,7 @@
     xdg.userDirs.enable = true;
     xdg.mimeApps.enable = true;
     zsh.enable = true;
+    zsh.zoxide.enable = true;
   };
 
   home = {
