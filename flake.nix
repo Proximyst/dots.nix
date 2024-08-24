@@ -28,87 +28,84 @@
     };
   };
 
-  outputs = { self, nixpkgs, flake-utils, ... } @ inputs:
-    {
-      nixosConfigurations.desktop = inputs.nixpkgs.lib.nixosSystem (
+  outputs = { self, flake-utils, ... } @ inputs:
+    let
+      mkSystem = { system, hostname, host, username, ... }:
         let
-          system = "x86_64-linux";
-          user = "mariell";
+          isLinux = inputs.nixpkgs.legacyPackages.${system}.stdenv.isLinux;
         in
-        {
-          inherit system;
-          specialArgs = {
-            inherit system inputs user;
-          };
-
-          modules = [
-            # Set up the machine itself
-            ./machines/common
-            ./machines/desktop
-
-            # Set up home-manager for the main user
-            inputs.home-manager.nixosModules.home-manager
-            {
-              home-manager = {
-                useGlobalPkgs = true;
-                useUserPackages = true;
-                # These are passed to ALL home-manager modules.
-                extraSpecialArgs = {
-                  inherit system inputs user;
-                };
-              };
-            }
-          ];
-        }
-      );
-
-      darwinConfigurations.work = inputs.nix-darwin.lib.darwinSystem (
-        let
-          system = "aarch64-darwin";
-          nixpkgsConf = {
+        (if isLinux
+        then inputs.nixpkgs.lib.nixosSystem
+        else inputs.nix-darwin.lib.darwinSystem)
+          {
             inherit system;
-            config.allowUnfree = true;
-            overlays = [
-              inputs.fenix.overlays.default
-              inputs.neovim-conf.overlays.default
-            ];
+            specialArgs = {
+              inherit system inputs username;
+            };
+
+            modules =
+              let
+                overlays = [
+                  inputs.fenix.overlays.default
+                  inputs.neovim-conf.overlays.default
+                  (final: prev: {
+                    my = {
+                      mkDisableOption = description: (prev.lib.mkEnableOption description) // { default = true; };
+                    };
+                  })
+                ];
+              in
+              [
+                ({ lib, pkgs, ... }: {
+                  # Don't set this on Darwin.
+                  networking.hostName = lib.mkIf isLinux hostname;
+                  nixpkgs.overlays = lib.mkIf isLinux overlays;
+                  nixpkgs.config.allowUnfree = true;
+                })
+
+                ./hosts/modules
+                host
+
+                (if isLinux
+                then inputs.home-manager.nixosModules
+                else inputs.home-manager.darwinModules).home-manager
+                {
+                  home-manager = {
+                    useGlobalPkgs = true;
+                    useUserPackages = true;
+                    extraSpecialArgs = {
+                      inherit system inputs username;
+                    };
+
+                    users.${username} = ./home;
+                  } // (if isLinux
+                  then { }
+                  else {
+                    nixpkgs = {
+                      inherit system overlays;
+                      config.allowUnfree = true;
+                    };
+                  });
+                }
+              ];
           };
-        in
-        {
-          specialArgs = {
-            inherit inputs;
-          };
+    in
+    {
+      nixosConfigurations.desktop = mkSystem {
+        system = "x86_64-linux";
+        hostname = "mariell-nix";
+        host = ./hosts/desktop;
+        username = "mariell";
+      };
 
-          modules = [
-            (args: import ./machines/darwin ({
-              inherit inputs;
-              pkgs = import nixpkgs nixpkgsConf;
-            } // args))
-
-            inputs.home-manager.darwinModules.home-manager
-            {
-              nixpkgs = nixpkgsConf;
-
-              home-manager = {
-                # Prefer the system-level pkgs, as opposed to a separate set.
-                useGlobalPkgs = true;
-                # Enable installing packages via users.users.<...>.packages.
-                useUserPackages = true;
-                # Add extra arguments passed to ALL home-manager modules.
-                extraSpecialArgs = {
-                  inherit system inputs;
-                };
-
-                users.mariellh = {
-                  imports = [ ./users/mariellh-work ];
-                };
-              };
-            }
-          ];
-        }
-      );
+      # darwinConfigurations.work = mkSystem {
+      #   system = "aarch64-darwin";
+      #   hostname = "mariell-work";
+      #   host = ./hosts/work;
+      #   username = "mariellh";
+      # };
     }
     // (flake-utils.lib.eachDefaultSystem (system: {
-      formatter = nixpkgs.legacyPackages."${system}".nixpkgs-fmt;
+      formatter = inputs.nixpkgs.legacyPackages."${system}".nixpkgs-fmt;
     }));
 }
