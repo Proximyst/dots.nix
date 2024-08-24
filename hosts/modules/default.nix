@@ -5,6 +5,7 @@ _:
     ./boot.nix
     ./catppuccin.nix
     ./console.nix
+    ./devshells.nix
     ./display.nix
     ./docker.nix
     ./fonts.nix

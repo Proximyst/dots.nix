@@ -21,7 +21,7 @@ with lib;
       # For the external rules
       xdo
       xdotool
-# For xinput
+      # For xinput
       perl
       gnugrep
       xorg.xinput

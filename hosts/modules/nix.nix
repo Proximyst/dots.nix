@@ -1,8 +1,6 @@
 { config, lib, inputs, ... }:
 
 let
-  flakeInputs = lib.filterAttrs (name: value: (value ? outputs) && (name != "self")) inputs;
-  registry = builtins.mapAttrs (name: v: { flake = v; }) flakeInputs;
   cfg = config.modules.nix;
 in
 with lib;
@@ -20,7 +18,13 @@ with lib;
     nixpkgs.config.allowUnfree = true;
 
     nix = {
-      inherit registry;
+      registry.nixpkgs = {
+        from = {
+          id = "nixpkgs";
+          type = "indirect";
+        };
+        flake = inputs.nixpkgs;
+      };
 
       # Enable flakes
       settings.experimental-features = [ "nix-command" "flakes" ];

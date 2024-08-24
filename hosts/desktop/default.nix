@@ -10,6 +10,7 @@ _:
     sddm.enable = true;
     docker.enable = true;
     games.enable = true;
+    devshells.enable = true;
 
     display = {
       enable = true;
