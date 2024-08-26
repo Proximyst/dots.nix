@@ -11,6 +11,7 @@ _:
     docker.enable = true;
     games.enable = true;
     devshells.enable = true;
+    power.enable = true;
 
     display = {
       enable = true;
