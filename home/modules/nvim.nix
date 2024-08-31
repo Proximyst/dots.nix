@@ -14,5 +14,11 @@ with lib;
 
   config = mkIf cfg.enable {
     home.packages = [ cfg.package ];
+    systemd.user.sessionVariables = {
+      EDITOR = "nvim";
+    };
+    home.sessionVariables = {
+      EDITOR = "nvim";
+    };
   };
 }

@@ -16,5 +16,8 @@ with lib;
       vimAlias = true;
       viAlias = true;
     };
+    environment.sessionVariables = {
+      EDITOR = "nvim";
+    };
   };
 }
