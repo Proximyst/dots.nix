@@ -30,6 +30,8 @@
           gnumake
           just
           protobuf
+          buf
+          protoc-gen-doc
         ]));
 
         mkCxx = compiler: mkDefaultDevShell (with pkgs; [
@@ -41,7 +43,7 @@
           bazel-gazelle
         ]);
         mkJava = jdk: mkDefaultDevShell (with pkgs; [ jdk gradle maven ]);
-        mkRust = toolchain: mkDefaultDevShell [
+        mkRust = toolchain: mkDefaultDevShell (with pkgs; [
           (pkgs.fenix.${toolchain}.withComponents [
             "cargo"
             "clippy"
@@ -50,11 +52,20 @@
             "rustfmt"
             "rust-analyzer"
           ])
-        ];
+          protoc-gen-rust
+          protoc-gen-tonic
+          protoc-gen-prost
+          protoc-gen-prost-serde
+        ]);
       in
       {
         devShells = {
-          go = mkDefaultDevShell (with pkgs; [ go golangci-lint ]);
+          go = mkDefaultDevShell (with pkgs; [
+            go
+            golangci-lint
+            protoc-gen-go
+            protoc-gen-go-grpc
+          ]);
           grafana = mkDefaultDevShell (with pkgs; [ go gcc nodejs corepack ]);
           gcc = mkCxx pkgs.gcc;
           clang = mkCxx pkgs.clang;
