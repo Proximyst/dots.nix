@@ -12,6 +12,7 @@ _:
     games.enable = true;
     devshells.enable = true;
     power.enable = true;
+    hosts.media.enable = true;
 
     display = {
       enable = true;

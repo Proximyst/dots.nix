@@ -10,6 +10,7 @@ _:
     ./docker.nix
     ./fonts.nix
     ./games.nix
+    ./hosts.nix
     ./mouse.nix
     ./nix.nix
     ./nvim.nix
