@@ -12,10 +12,12 @@ with lib;
 
   config = {
     home.packages = with pkgs; mkMerge [
-      (mkIf cfg.discord.enable [ discord ])
+      (mkIf cfg.discord.enable [
+        (discord.override {
+          withVencord = true;
+        })
+      ])
       (mkIf cfg.zoom.enable [ zoom-us ])
     ];
-
-    # TODO: Set up Vencord with catppuccin
   };
 }

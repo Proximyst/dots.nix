@@ -1,7 +1,7 @@
 { config, lib, ... }:
 
 let
-cfg = config.modules.hosts;
+  cfg = config.modules.hosts;
 in
 with lib;
 {
