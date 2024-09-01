@@ -11,6 +11,7 @@
     catppuccin.flavor = "macchiato";
     direnv.enable = true;
     firefox.enable = true;
+    games.enable = true;
     git = {
       enable = true;
       name = "Mariell Hoversholm";

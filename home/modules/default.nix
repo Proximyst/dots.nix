@@ -6,6 +6,7 @@ _:
     ./catppuccin.nix
     ./direnv.nix
     ./firefox.nix
+    ./games.nix
     ./git.nix
     ./hyfetch.nix
     ./idea.nix
