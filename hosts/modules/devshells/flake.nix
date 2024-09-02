@@ -74,6 +74,13 @@
           rust-nightly = mkRust "complete";
           rust-stable = mkRust "stable";
           rust-beta = mkRust "beta";
+          haskell = mkDefaultDevShell (with pkgs; [
+            ghc
+            haskellPackages.cabal-install
+            haskellPackages.hpack
+            haskellPackages.cabal2nix
+            zlib
+          ]);
         };
 
         formatter = pkgs.nixpkgs-fmt;

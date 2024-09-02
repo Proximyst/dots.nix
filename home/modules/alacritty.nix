@@ -15,6 +15,7 @@ with lib;
       settings = {
         font = {
           normal.family = "Iosevka";
+          size = 12.50;
         };
       };
     };

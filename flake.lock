@@ -118,11 +118,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1724828731,
-        "narHash": "sha256-9ayqzjoHAWP0F1SCPQtvkTLDdYHLg2PNkkeFQwx8zt8=",
+        "lastModified": 1725218236,
+        "narHash": "sha256-GGMXFpb3Qys+E1MlZRn9G2irrWj6pYfeEZbmVOtGro0=",
         "owner": "proximyst",
         "repo": "neovim.nix",
-        "rev": "a1ad73bd34631b01a72299e4976335cda053f61e",
+        "rev": "0ea29fbcda0da5f17d75ada36789cb6a00df4349",
         "type": "github"
       },
       "original": {
