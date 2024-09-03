@@ -5,3 +5,7 @@ isn't mine. If it doesn't work for you, please don't reach out to me.
 
 You're free to copy whatever you want. I don't care about the ownership of the
 code.
+
+## Moved
+
+This repository has moved to SourceHut: <https://git.sr.ht/~mariell/dots.nix>
