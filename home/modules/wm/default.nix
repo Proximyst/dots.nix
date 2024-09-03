@@ -90,7 +90,7 @@ with lib;
         super + {_, ctrl +}{h,j,k,l}
           bspc node -{f,s} {west,south,north,east}
 
-        super + {_, ctrl +}{1-9,10}
+        super + {_, ctrl +}{1-9,0}
           bspc {desktop -f,node -d} '^{1-9,10}'
 
         super + {p,o,comma,period}
